@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Game.Models.displayusermodel>
+@{
+    Layout = null;
+}
+
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lastname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gamename)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.countryname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.statename)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cityname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.gametype)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Firstname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.lastname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gamename)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.countryname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.statename)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cityname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.gametype)
+            </td>
+            <td>
+
+                @Ajax.ActionLink(" ", "EditGame", new { id = item.ID }, new AjaxOptions{
+                   
+                    
+                },new { @class = "btn btn-primary glyphicon glyphicon-pencil" })
+                
+                
+                
+                    |
+                @Ajax.ActionLink(" ", "DeleteGame", new { id = item.ID },
+                    new AjaxOptions
+                    {                        
+                    },
+                    new { @class = "btn btn-danger glyphicon glyphicon-trash" })
+
+            </td>
+        </tr>
+    }
+
+</table>
+<script>
+
+</script>

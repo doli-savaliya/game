@@ -1,0 +1,116 @@
+﻿@model Game.Models.UserGame
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>DemoGame</h2>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/Custome.js"></script>
+@{ 
+    string Formtype = "CreateGame";
+}
+@if ((!string.IsNullOrEmpty(Convert.ToString(ViewBag.paramid)) && Convert.ToInt32(ViewBag.paramid) != 0))
+{
+    Formtype = "EditGame";
+}
+
+
+@using (Html.BeginForm(Formtype, "Game", FormMethod.Post))
+{
+
+
+    @*else
+        {
+            @Html.BeginForm("CreateGame", "Game", FormMethod.Post)
+        }*@
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Firstname, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Firstname, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Firstname, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.lastname, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.lastname, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.lastname, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Country", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Country_Id, new SelectList(ViewBag.country as IEnumerable<SelectListItem>, "Value", "Text"), "Select Country", new { @class = "form-control", @Id = "countryid" })
+                @Html.ValidationMessageFor(model => model.Country_Id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("State", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.State_Id, new SelectList(ViewBag.viewstatelist as IEnumerable<SelectListItem>, "Value", "Text"), "Select State", new { @class = "form-control", @Id = "stateid" })
+                @Html.ValidationMessageFor(model => model.State_Id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("City", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.City_Id, new SelectList(ViewBag.viewcitylist as IEnumerable<SelectListItem>, "Value", "Text"), "Select City", new { @class = "form-control", @Id = "cityid" })
+                @Html.ValidationMessageFor(model => model.City_Id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("GameType", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                @Html.DropDownListFor(model => model.gametype_Id, new SelectList(ViewBag.Gametype as IEnumerable<SelectListItem>, "Value", "Text"), "Select GameType", new { @class = "form-control", @Id = "GametypeID" })
+                @Html.ValidationMessageFor(model => model.gametype_Id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("GameList", htmlAttributes: new { @class = "control-label col-md-2", @Id = "gamelist" })
+
+            <div class="col-md-10">
+                <div id="gametypelist"></div>
+            </div>
+        </div>
+        @Html.HiddenFor(model => model.Gamename, new { @Id = "GameName" })
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+
+                @if ((!string.IsNullOrEmpty(Convert.ToString(ViewBag.paramid)) && Convert.ToInt32(ViewBag.paramid) != 0))
+                { 
+                    <input type="submit" value="Update" class="btn btn-default" />
+                    @Html.ActionLink("Cancel", "CreateGame", "Game")
+                }
+                else
+                {
+                    <input type="submit" value="Create" class="btn btn-default" />
+                }
+
+            </div>
+        </div>
+    </div>
+
+}
+
+<div id="displygrid">
+    @*@Html.RenderAction("Displaygrid","Game",)*@
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
